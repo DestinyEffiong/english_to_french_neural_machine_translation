@@ -46,7 +46,7 @@ Every submission must satisfy all of these. A maintainer will spot-check.
 - **No identical pairs.** If `eng_Latn` equals `fra_Latn`, the row is broken.
 - **No HTML, no markup, no URLs.** Strip them.
 - **No obviously wrong language.** A row where `fra_Latn` is actually English is a bug.
-- **No sentence over 512 tokens.** NLLB truncates at 512; longer rows train on partial sentences and produce garbage.
+- **No sentence over  256 tokens.** NLLB truncates at 256; longer rows train on partial sentences and produce garbage.
 - **Consistent punctuation.** Do not mix French guillemets and English quotes in the same dataset without reason.
 - **Stable IDs.** `id` is a unique string within the dataset. Use a monotonic integer as a string, or a hash. Never reuse.
 

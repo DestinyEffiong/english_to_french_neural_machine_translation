@@ -97,7 +97,7 @@ flowchart LR
     Load["Lazy load:\nfirst request triggers\n30–90s model load"]
     Model["Base model +\nadapter"]
     French["French text"]
-    Err400["400: empty or\n>512 tokens"]
+    Err400["400: empty or\n>256 tokens"]
     Err500["500: model failure"]
 
     Browser --> Frontend
@@ -113,7 +113,7 @@ flowchart LR
     Model -- "error" --> Err500
 ```
 
-The backend is the only component that touches model weights. The frontend never sees the model. On the first `POST /translate` request, the backend downloads the base model and loads the adapter on top of it via `PeftModel.from_pretrained(base, adapter_id)`. This takes 30–90 seconds. Subsequent requests are fast. Input that is empty or exceeds 512 tokens is rejected with HTTP 400 — never silently truncated. If the model itself fails, the backend returns HTTP 500. The API contract (`GET /health`, `POST /translate`) is fixed in [docs/interfaces.md](interfaces.md). The adapter repo ID is read from `.env` via `ADAPTER_REPO` in [`backend/config.py`](../backend/config.py).
+The backend is the only component that touches model weights. The frontend never sees the model. On the first `POST /translate` request, the backend downloads the base model and loads the adapter on top of it via `PeftModel.from_pretrained(base, adapter_id)`. This takes 30–90 seconds. Subsequent requests are fast. Input that is empty or exceeds 256 tokens is rejected with HTTP 400 — never silently truncated. If the model itself fails, the backend returns HTTP 500. The API contract (`GET /health`, `POST /translate`) is fixed in [docs/interfaces.md](interfaces.md). The adapter repo ID is read from `.env` via `ADAPTER_REPO` in [`backend/config.py`](../backend/config.py).
 
 ---
 

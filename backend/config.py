@@ -13,4 +13,4 @@ ADAPTER_SUBFOLDER = os.getenv("ADAPTER_SUBFOLDER") or "submission-001"
 
 # Maximum input length in tokens. This is NLLB's hard cap.
 # Input exceeding this is rejected with HTTP 400, not truncated.
-MAX_LENGTH = 512
+MAX_LENGTH = 256

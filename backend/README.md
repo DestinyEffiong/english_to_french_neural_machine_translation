@@ -63,13 +63,14 @@ curl -X POST http://localhost:8000/translate \
 
 Request `{"text": "hello"}` → response `{"translation": "bonjour"}`
 
-| Condition | Status |
-| --- | --- |
+| Condition                              | Status |
+|----------------------------------------| --- |
 | `text` missing, empty, or not a string | 400 |
-| `text` exceeds 512 tokens | 400 |
-| Model failed to load or translate | 500 |
+| `text` exceeds 256 tokens              | 400 |
+| Model failed to load or translate      | 500 |
 
 Input over the limit is rejected, not truncated.
+
 
 ## How the model loads
 
